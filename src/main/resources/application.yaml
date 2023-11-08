@@ -1,0 +1,14 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    initialization-mode: always
+    url: jdbc:h2:file:C:\Users\Даня\Downloads\FinalProjectApplication\FinalProjectApplication\src\main\resources\db_save\db_save
+    username:
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernatere.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
