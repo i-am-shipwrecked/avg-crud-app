@@ -5,6 +5,8 @@ import com.example.FinalProjectApplication.tables.Projects;
 import com.example.FinalProjectApplication.tables.Tasks;
 import com.example.FinalProjectApplication.repositories.ProjectRepository;
 import com.example.FinalProjectApplication.repositories.TaskRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +18,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/tasks")
+@Tag(name = "Task", description = "The Task API")
 public class TasksController {
-
     @Autowired
     TaskRepository taskRepository;
     @Autowired
@@ -28,6 +31,7 @@ public class TasksController {
     }
 
     @GetMapping("/api/projects/getTasksByProjectId/{id}")
+    @Operation(summary = "Get all tasks by project ID")
     public List<Tasks> getTasksByProjectId(@PathVariable("id") UUID projectId) {
         Optional<Projects> project = projectRepository.findById(projectId);
         if (project.isPresent()) {
@@ -36,7 +40,9 @@ public class TasksController {
             return Collections.emptyList();
         }
     }
+
     @PostMapping("/api/projects/{id}/tasks")
+    @Operation(summary = "Create a new task")
 //    {
 //        "name": "Название задачи",
 //            "description": "Описание задачи",
@@ -69,6 +75,7 @@ public class TasksController {
     }
 
     @DeleteMapping("/api/projects/{id}/tasks/{taskId}")
+    @Operation(summary = "Delete task by ID, by project ID")
     public ResponseEntity<Void> deleteTask(@PathVariable("id") UUID id, @PathVariable("taskId") UUID taskId) {
         Optional<Projects> projectOptional = projectRepository.findById(id);
         if (projectOptional.isPresent()) {
@@ -93,6 +100,7 @@ public class TasksController {
     }
 
     @GetMapping("/api/projects/{projectId}/tasks/{taskId}")
+    @Operation(summary = "Get task by project ID")
     public Tasks getTaskById(@PathVariable("projectId") UUID projectId, @PathVariable("taskId") UUID taskId) {
         Optional<Projects> projectOptional = projectRepository.findById(projectId);
         if (projectOptional.isPresent()) {
@@ -114,6 +122,7 @@ public class TasksController {
     }
 
     @PutMapping("/api/projects/{projectId}/tasks/{taskId}")
+    @Operation(summary = "Update task in the project by project ID")
     public Tasks updateTask(@PathVariable("id") UUID projectId, @PathVariable("taskId") UUID taskId, @RequestBody Tasks updatedTask) {
         Optional<Projects> projectOptional = projectRepository.findById(projectId);
         if (projectOptional.isPresent()) {
