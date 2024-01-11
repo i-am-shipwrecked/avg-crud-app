@@ -37,6 +37,16 @@ public class TasksController {
         }
     }
     @PostMapping("/api/projects/{id}/tasks")
+//    {
+//        "name": "Название задачи",
+//            "description": "Описание задачи",
+//            "deadline": "Крайний срок",
+//            "status": "in progress",
+//            "project": {
+//        "id": "46d0529f-5622-4944-bef0-a32b5ecefe54"
+//    },
+//        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+//    }
     public ResponseEntity<Tasks> createTask(@PathVariable("id") UUID id, @RequestBody Tasks task) {
         Optional<Projects> projectOptional = projectRepository.findById(id);
         if (projectOptional.isPresent()) {

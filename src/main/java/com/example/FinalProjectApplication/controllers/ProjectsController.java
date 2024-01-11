@@ -1,27 +1,35 @@
 package com.example.FinalProjectApplication.controllers;
 
+import com.example.FinalProjectApplication.repositories.TaskRepository;
 import com.example.FinalProjectApplication.tables.Projects;
 import com.example.FinalProjectApplication.tables.Tasks;
 import com.example.FinalProjectApplication.tables.Users;
 import com.example.FinalProjectApplication.repositories.ProjectRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-//@RequestMapping("/projects")
+@RequestMapping("/projects")
+@Tag(name = "Project", description = "The Project API")
 public class ProjectsController {
     @Autowired
     ProjectRepository projectRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     public ProjectsController(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
-    @PostMapping("/api/projects/createProject")
+    @PostMapping("/api/createProject")
+    @Operation(summary = "Create a new project")
     public void createProject(@RequestBody Projects project) {
         Projects newProject = new Projects(project.getId(), project.getName(), project.getDescription(), project.getBeginning(), project.getEnding(), project.getTasksList(), project.getUsers());
         if (project.getTasksList() != null) {
@@ -37,12 +45,14 @@ public class ProjectsController {
         projectRepository.save(newProject);
     }
 
-    @GetMapping("api/projects/getAllProjects")
+    @GetMapping("api/getAllProjects")
+    @Operation(summary = "Get all projects")
     public List<Projects> getAllProjects() {
         return (List<Projects>) projectRepository.findAll();
     }
 
     @PutMapping("/api/projects/updateProjectById/{id}")
+    @Operation(summary = "Update project by ID")
     public void updateProjectById(@PathVariable UUID id, @RequestBody Projects project) {
         Projects existingProject = projectRepository.findById(id).orElse(null);
         if (existingProject != null) {
@@ -57,6 +67,7 @@ public class ProjectsController {
     }
 
     @DeleteMapping("/api/projects/deleteProjectById/{id}")
+    @Operation(summary = "Delete project by ID")
     public void deleteProjectById(@PathVariable UUID id) {
         projectRepository.deleteById(id);
     }
@@ -71,10 +82,28 @@ public class ProjectsController {
             return ResponseEntity.notFound().build();
         }
     }
-    public void addTask(Tasks task) {
 
+    @PostMapping("/api/projects/addTaskToProject/{projectId}")
+    @Operation(summary = "Add task to the project by project ID")
+    public void addTaskToProject(@PathVariable UUID projectId, @RequestBody Tasks task) {
+        Projects project = projectRepository.findById(projectId).orElse(null);
+
+        if (project != null) {
+            Tasks existingTask = taskRepository.findById(task.getId()).orElse(null);
+
+            if (existingTask == null) {
+                task.setProject(project);
+                project.getTasksList().add(task);
+                projectRepository.save(project);
+            } else {
+                existingTask.setName(task.getName());
+                existingTask.setDescription(task.getDescription());
+                existingTask.setDeadline(task.getDeadline());
+                existingTask.setStatus(task.getStatus());
+                existingTask.setProject(project);
+
+                taskRepository.save(existingTask);
+            }
+        }
     }
-
-
-
 }
