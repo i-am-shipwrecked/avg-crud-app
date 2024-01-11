@@ -1,7 +1,7 @@
 package com.example.FinalProjectApplication.controllers;
 
 import com.example.FinalProjectApplication.ResourceNotFoundException;
-import com.example.FinalProjectApplication.Tables.Users;
+import com.example.FinalProjectApplication.tables.Users;
 import com.example.FinalProjectApplication.repositories.ProjectRepository;
 import com.example.FinalProjectApplication.repositories.TaskRepository;
 import com.example.FinalProjectApplication.repositories.UsersRepository;
@@ -52,10 +52,8 @@ public class UsersController {
         }
     }
 
-
-
     @PutMapping("/api/user/{id}/profile")
-    @Operation(summary = "Update user's profile by ID")
+    @Operation(summary = "Update user's username by ID")
     public Users updateProfile(@PathVariable("id") UUID id, @RequestBody Users updatedUser) {
         Optional<Users> userOptional = usersRepository.findById(id);
         if (userOptional.isPresent()) {
@@ -66,6 +64,7 @@ public class UsersController {
             throw new ResourceNotFoundException("User not found");
         }
     }
+
     @JsonIgnore
     @PutMapping("/api/user/password/{id}")
     @Operation(summary = "Update users password by ID")
@@ -89,6 +88,4 @@ public class UsersController {
             throw new ResourceNotFoundException("User not found");
         }
     }
-
-
 }

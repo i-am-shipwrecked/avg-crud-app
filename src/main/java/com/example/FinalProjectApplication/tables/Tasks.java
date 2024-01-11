@@ -1,4 +1,4 @@
-package com.example.FinalProjectApplication.Tables;
+package com.example.FinalProjectApplication.tables;
 
 
 

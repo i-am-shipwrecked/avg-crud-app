@@ -1,8 +1,8 @@
 package com.example.FinalProjectApplication.controllers;
 
 import com.example.FinalProjectApplication.ResourceNotFoundException;
-import com.example.FinalProjectApplication.Tables.Projects;
-import com.example.FinalProjectApplication.Tables.Tasks;
+import com.example.FinalProjectApplication.tables.Projects;
+import com.example.FinalProjectApplication.tables.Tasks;
 import com.example.FinalProjectApplication.repositories.ProjectRepository;
 import com.example.FinalProjectApplication.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;

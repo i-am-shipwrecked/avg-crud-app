@@ -1,6 +1,6 @@
 package com.example.FinalProjectApplication.repositories;
 
-import com.example.FinalProjectApplication.Tables.Tasks;
+import com.example.FinalProjectApplication.tables.Tasks;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

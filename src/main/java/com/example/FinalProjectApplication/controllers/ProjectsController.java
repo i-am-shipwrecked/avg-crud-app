@@ -1,8 +1,8 @@
 package com.example.FinalProjectApplication.controllers;
 
-import com.example.FinalProjectApplication.Tables.Projects;
-import com.example.FinalProjectApplication.Tables.Tasks;
-import com.example.FinalProjectApplication.Tables.Users;
+import com.example.FinalProjectApplication.tables.Projects;
+import com.example.FinalProjectApplication.tables.Tasks;
+import com.example.FinalProjectApplication.tables.Users;
 import com.example.FinalProjectApplication.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
