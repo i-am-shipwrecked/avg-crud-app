@@ -1,19 +1,9 @@
 package com.example.FinalProjectApplication.Tables;
 
-import com.example.FinalProjectApplication.ResourceNotFoundException;
-import com.example.FinalProjectApplication.repositories.ProjectRepository;
-import com.example.FinalProjectApplication.repositories.TaskRepository;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-//import jakarta.validation.constraints.NotEmpty;
-
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 

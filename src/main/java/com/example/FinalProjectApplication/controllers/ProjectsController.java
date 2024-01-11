@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
-//@org.springframework.web.bind.annotation.RestController
 @RestController
 //@RequestMapping("/projects")
 public class ProjectsController {
