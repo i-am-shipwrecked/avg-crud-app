@@ -36,6 +36,10 @@ mvn clean install
 mvn spring-boot:run
 ```
 
+The application will be accessible at `http://localhost:8080`
+
+API documentation, powered by Swagger, can be accessed at `http://localhost:8080/swagger-ui.html` and `http://localhost:8080/swagger-ui/index.html?url=/v3/api-docs`
+
 ## Projects Controller
 
 ### Create a New Project
