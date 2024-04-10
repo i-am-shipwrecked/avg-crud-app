@@ -40,6 +40,8 @@ The application will be accessible at `http://localhost:8080`
 
 API documentation, powered by Swagger, can be accessed at `http://localhost:8080/swagger-ui.html` and `http://localhost:8080/swagger-ui/index.html?url=/v3/api-docs`
 
+Access to the H2 database console is available after running the project. You can access it via the endpoint: `http://localhost:8080/h2-console`
+
 ## Projects Controller
 
 ### Create a New Project
