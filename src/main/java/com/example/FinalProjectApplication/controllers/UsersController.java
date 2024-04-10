@@ -1,6 +1,7 @@
 package com.example.FinalProjectApplication.controllers;
 
 import com.example.FinalProjectApplication.ResourceNotFoundException;
+import com.example.FinalProjectApplication.services.UserService;
 import com.example.FinalProjectApplication.tables.Users;
 import com.example.FinalProjectApplication.repositories.ProjectRepository;
 import com.example.FinalProjectApplication.repositories.TaskRepository;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -25,6 +27,8 @@ public class UsersController {
     ProjectRepository projectRepository;
     @Autowired
     UsersRepository usersRepository;
+    @Autowired
+    UserService userService;
 
     public UsersController(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
@@ -50,6 +54,12 @@ public class UsersController {
         } else {
             throw new ResourceNotFoundException("User not found");
         }
+    }
+
+    @GetMapping("/api/user/profile")
+    @Operation(summary = "Get user by username and password")
+    public Users getUserByUsernameAndPassword(@RequestParam String username, @RequestParam String password) {
+        return userService.getUserByUsernameAndPassword(username, password);
     }
 
     @PutMapping("/api/user/{id}/profile")
