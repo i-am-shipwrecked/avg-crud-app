@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -36,14 +35,16 @@ public class UsersController {
 
     @PostMapping("/api/register")
     @Operation(summary = "Register a new user")
-    public Users registerUser(@RequestBody Users user) {
+    public UUID registerUser(@RequestBody Users user) {
         String password = user.getPassword();
         if (password != null && !password.isEmpty()) {
-            return usersRepository.save(user);
+            Users savedUser = usersRepository.save(user);
+            return savedUser.getUserId();
         } else {
             throw new IllegalArgumentException("Password is required");
         }
     }
+
 
     @GetMapping("/api/user/{id}")
     @Operation(summary = "Get user by ID")
