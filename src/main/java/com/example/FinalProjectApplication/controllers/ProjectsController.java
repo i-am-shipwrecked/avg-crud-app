@@ -29,6 +29,7 @@ public class ProjectsController {
     }
 
     @PostMapping("/api/createProject")
+    //добавить чтобы он возвращал uid созданного проекта
     @Operation(summary = "Create a new project")
     public void createProject(@RequestBody Projects project) {
         Projects newProject = new Projects(project.getId(), project.getName(), project.getDescription(), project.getBeginning(), project.getEnding(), project.getTasksList(), project.getUsers());
