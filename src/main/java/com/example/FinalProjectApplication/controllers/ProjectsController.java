@@ -8,6 +8,7 @@ import com.example.FinalProjectApplication.repositories.ProjectRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +30,8 @@ public class ProjectsController {
     }
 
     @PostMapping("/api/createProject")
-    //добавить чтобы он возвращал uid созданного проекта
     @Operation(summary = "Create a new project")
-    public void createProject(@RequestBody Projects project) {
+    public ResponseEntity<UUID> createProject(@RequestBody Projects project) {
         Projects newProject = new Projects(project.getId(), project.getName(), project.getDescription(), project.getBeginning(), project.getEnding(), project.getTasksList(), project.getUsers());
         if (project.getTasksList() != null) {
             for (Tasks task : project.getTasksList()) {
@@ -43,8 +43,10 @@ public class ProjectsController {
                 newProject.getUsers().add(user);
             }
         }
-        projectRepository.save(newProject);
+        Projects savedProject = projectRepository.save(newProject);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProject.getId());
     }
+
 
     @GetMapping("api/getAllProjects")
     @Operation(summary = "Get all projects")
